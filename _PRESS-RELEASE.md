@@ -16,29 +16,24 @@ Oh, and I also like to write press-releases in what I call "Oprah-speak" for mai
 Once the project moves into development, the press release can be used as a touchstone; a guiding light. The product team can ask themselves, "Are we building what is in the press release?" If they find they're spending time building things that aren't in the press release (overbuilding), they need to ask themselves why. This keeps product development focused on achieving the customer benefits and not building extraneous stuff that takes longer to build, takes resources to maintain, and doesn't provide real customer benefit (at least not enough to warrant inclusion in the press release).
  -->
  
-## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
-
-## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+## D&D Campaign Creator ##
+Empowers DMs with total control to create campaigns inspired by published random tables
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+Make full use of the wealth of random tables in the published D&D materials to design creative, innovative camapigns.  Retain full control of your creative process by being able to roll on the tables, directly select a choice, or edit the campaign document directly to make it your own.  Choices from the tables will auto-populate into the campaign document where you can change them to your heart's content.  You can export the document or save it for later use.
 
 ## Problem ##
-  > Describe the problem your product solves.
+Currently, the random tables in the DMG and other published materials are scattered across hundreds of pages, and require the DM to write the results out by hand or type them themselves into their note-taker of choice.  Further, there is no integration between the wealth of published materials on dndbeyond and the DMs ability to leverage those materials in a way comparable to dndbeyond's character creator and encounter builder.  
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+This seeks to fill the gap identified above and, eventually, should allow the inclusion of links to encounters, characters, and dndbeyond's native campaign manager.  Finally, dndbeyond's authentication system alongside open-source authentication methods available within the dnd developer community will allow this app to ensure that users have access only to the resources they've purchased.  Eventually, the app will allow users to insert their own user-made tables for homebrew options that integrate seemlessly into the creator itself.  Further export options (.pdf, for example) will come with subsequent implementations.
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+You have a character creator and an encounter builder -- now, welcome to the campaign creator: all the power of digital D&D resources leveraged to help you create innovative, exiting adventures and campaigns!
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+Simply open the app, create your account, connect it to your dndbeyond account, and the campaign creator will give you access to all the tools you need to make amazing campaigns for your table.
 
-## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+Parker: "Before, I had to stack 5 books on my desk and waste time looking through them for the different tables & resources, and then waste more time scratching down notes to myself.  The campaign creator puts it all in one place and automates the process, saving me time and letting me focus on making a great game for my players." 
 
-## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+So what's left to do?  Go sign up and make the campaign of your dreams, easier than ever!
