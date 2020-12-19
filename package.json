@@ -1,0 +1,59 @@
+{
+  "name": "dndcampaignmaker",
+  "version": "1.0.0",
+  "description": "empowers DMs with control to create campaigns inspired by published random tables",
+  "main": "index.js",
+  "dependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
+    "axios": "^0.21.0",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.0.1",
+    "express": "^4.17.1",
+    "node-sass": "^5.0.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "sass-loader": "^10.1.0",
+    "style-loader": "^2.0.0",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^4.2.0"
+  },
+  "devDependencies": {
+    "babel-jest": "^26.6.3",
+    "enzyme": "^3.11.0",
+    "eslint": "^7.16.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "jest": "^26.6.3",
+    "jest-enzyme": "^7.1.2",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abessia/DnDCampaignMaker.git"
+  },
+  "keywords": [
+    "dnd",
+    "d&d",
+    "react",
+    "sass",
+    "node.js",
+    "express",
+    "jest",
+    "enzyme",
+    "dynamodb"
+  ],
+  "author": "Rebecca Wiegel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Abessia/DnDCampaignMaker/issues"
+  },
+  "homepage": "https://github.com/Abessia/DnDCampaignMaker#readme"
+}
