@@ -28,7 +28,6 @@ Currently, the random tables in the DMG and other published materials are scatte
 ## Solution ##
 This seeks to fill the gap identified above and, eventually, should allow the inclusion of links to encounters, characters, and dndbeyond's native campaign manager.  Finally, dndbeyond's authentication system alongside open-source authentication methods available within the dnd developer community will allow this app to ensure that users have access only to the resources they've purchased.  Eventually, the app will allow users to insert their own user-made tables for homebrew options that integrate seemlessly into the creator itself.  Further export options (.pdf, for example) will come with subsequent implementations.
 
-## Quote from You ##
 You have a character creator and an encounter builder -- now, welcome to the campaign creator: all the power of digital D&D resources leveraged to help you create innovative, exiting adventures and campaigns!
 
 ## How to Get Started ##
