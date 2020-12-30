@@ -12,20 +12,24 @@ class TableRow extends React.Component {
     this.state = {
       rowName: this.props.rowName,
       rowDetails: this.props.rowDetails,
+      rowIndex: this.props.rowIndex,
+      bottomRange: this.props.bottomRange,
+      upperRange: this.props.upperRange,
       suggestedAdd: this.props.suggestedAdd,
       addOption: this.props.addOption,
+      removeOption: this.props.removeOption,
     };
 
-    this.removeOption = this.removeOption.bind(this);
+    this.remove = this.remove.bind(this);
     this.selectOption = this.selectOption.bind(this);
   }
 
   selectOption() {
-    console.log(`${this.state.rowName} selected`);
     this.state.addOption(this.state.suggestedAdd);
   }
 
-  removeOption() {
+  remove() {
+    this.state.removeOption(this.state.rowIndex);
     console.log(`${this.state.rowName} removed from roll`);
   }
 
@@ -34,7 +38,8 @@ class TableRow extends React.Component {
       <li id="table-row">
         <span id="row-buttons">
           <Button clickHandler={this.selectOption} text="+" />
-          <Button clickHandler={this.removeOption} text="-" />
+          <Button clickHandler={this.remove} text="-" />
+          {` ${this.state.bottomRange} - ${this.state.upperRange}`}
         </span>
         <p id="row-name">{this.state.rowName}</p>
         <p id="row-description">{this.state.rowDetails}</p>
