@@ -4,13 +4,10 @@ import TableRow from './tableRow.jsx';
 
 function TableRows() {
   return (
-    <div>
-      <h3>Where Does Your Adventure Take Place?</h3>
-      <ul>
-        <TableRow description="The Wilderness" />
-        <TableRow description="The Dungeon" />
-      </ul>
-    </div>
+    <ul id="table-rows">
+      <TableRow rowName="The Wilderness" />
+      <TableRow rowName="The Dungeon" />
+    </ul>
   );
 }
 

@@ -1,12 +1,20 @@
+/* eslint-disable max-len */
 /* eslint-disable import/extensions */
 import React from 'react';
 import TableRows from './tableRows.jsx';
+import TableHeader from './tableHeader.jsx';
+// import RollButton from './rollButton.jsx';
 
 function Table() {
   return (
     <div>
-      <h2>Current Table</h2>
-      <TableRows />
+      <h2>Campaign Options</h2>
+      <div id="table">
+        <h4 id="table-title">Where Does Your Adventure Take Place?</h4>
+        <p id="table-description">Adventures set in crumbling dungeons and remote wilderness locations are the cornerstone of countless campaigns.</p>
+        <TableHeader />
+        <TableRows />
+      </div>
     </div>
   );
 }

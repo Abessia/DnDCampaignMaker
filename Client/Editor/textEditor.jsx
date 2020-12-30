@@ -3,12 +3,10 @@ import React from 'react';
 
 function TextEditor() {
   return (
-    <div>
-      <form>
-        <textarea>
-          Campaign text goes here
-        </textarea>
-      </form>
+    <div id="text-editor">
+      <textarea rows="30" cols="75">
+        Campaign text goes here
+      </textarea>
     </div>
   );
 }

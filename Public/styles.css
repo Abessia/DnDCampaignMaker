@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+/***** General Styles *****/
+* {
+  font-family: 'Roboto', Helvetica, sans-serif;
+}
+
+body {
+  margin: 0px;
+}
+
+h2 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+h4 {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+p {
+  margin: 1px;
+}
+
+.banner {
+  background-color: black;
+  color: white;
+  border-bottom: red 1px solid;
+  margin: 0px;
+}
+
+#grid-container {
+  background-color: rgb(248, 244, 244);
+  display: grid;
+  grid-template-areas: "current-table editor editor";
+}
+
+#basic-button {
+  display: inline;
+}
+
+/***** Table *****/
+#table-component {
+  grid-area: current-table;
+}
+
+#table {
+  display: grid;
+  grid-template-areas: "title title title"
+                       "description description description"
+                       "header header header"
+                       "rows rows rows";
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0px;
+  margin-top: 1px;
+  margin-bottom: 0px;
+}
+
+#table-title {
+  grid-area: title;
+}
+
+#table-description {
+  grid-area: description;
+  margin-top: 2px;
+  margin-bottom: 8px;
+}
+
+#table-header {
+  grid-area: header;
+  border-bottom: darkgrey 3px solid;
+}
+
+#header-row {
+  display: grid;
+  grid-template-areas: "roll option description";
+  margin: 0px;
+}
+
+#roll-button {
+  grid-area: roll;
+  border-right: darkgrey 3px solid;
+}
+
+#option-header {
+  grid-area: option;
+  border-right: darkgrey 3px solid;
+  border-left: darkgrey 3px solid;
+  margin: 0px;
+}
+
+#desciption-header {
+  grid-area: description;
+  margin: 0px;
+}
+
+#table-rows {
+  grid-area: rows;
+  align-content: end;
+}
+
+#table-row {
+  display: grid;
+  grid-template-areas: "buttons option-name details";
+  border: darkgrey 1px solid;
+  margin: 0px;
+}
+
+#row-buttons {
+  grid-area: buttons;
+}
+
+#row-name {
+  grid-area: option-name;
+  border-right: darkgrey 1px solid;
+  border-left: darkgrey 1px solid;
+  margin: 0px;
+}
+
+#row-details {
+  grid-area: details;
+}
+
+/***** Editor *****/
+#editor-component {
+  grid-area: editor;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.footer {
+  background-color: black;
+  color: white;
+  border-top: red 1px solid;
+  margin: 0px;
+}
+/*# sourceMappingURL=styles.css.map */

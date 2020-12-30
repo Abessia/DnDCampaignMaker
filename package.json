@@ -36,7 +36,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
-    "dev:styles": "sass-watch Styles/main.scss:Styles/styles.css",
+    "dev:styles": "sass --watch Styles/main.scss:Styles/styles.css",
     "dev:build": "webpack -d --watch",
     "dev:server": "nodemon Server/index.js",
     "start": "node Server/index.js",
