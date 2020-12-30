@@ -19,7 +19,6 @@ class Button extends React.Component {
   handleClick(event) {
     event.preventDefault();
     this.state.clickHandler();
-    console.log(`${this.state.text} was clicked.`);
   }
 
   render() {

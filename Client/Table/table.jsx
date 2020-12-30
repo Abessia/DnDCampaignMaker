@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable max-len */
@@ -12,10 +13,16 @@ function Table(props) {
     <div>
       <h2>Campaign Options</h2>
       <div id="table">
-        <h4 id="table-title">Where Does Your Adventure Take Place?</h4>
-        <p id="table-description">Adventures set in crumbling dungeons and remote wilderness locations are the cornerstone of countless campaigns.</p>
-        <TableHeader />
-        <TableRows addOption={props.addOption} />
+        <h4 id="table-title">{props.table.title}</h4>
+        <p id="table-description">{props.table.description}</p>
+        <TableHeader
+          addOption={props.addOption}
+          rows={props.table.rows}
+        />
+        <TableRows
+          addOption={props.addOption}
+          rows={props.table.rows}
+        />
       </div>
     </div>
   );

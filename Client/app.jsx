@@ -12,6 +12,34 @@ class App extends React.Component {
     super();
     this.state = {
       editorText: '',
+      table: {
+        title: 'Where Does Your Adventure Take Place?',
+        description: 'Adventures set in crumbling dungeons and remote wilderness locations are the cornerstone of countless campaigns',
+        step: 'Adventure-Location',
+        rows: [
+          {
+            lowRange: 0,
+            highRange: 33,
+            name: 'The Wilderness',
+            details: '',
+            suggestedAdd: 'This adventure focuses on the wilderness.',
+          },
+          {
+            lowRange: 34,
+            highRange: 66,
+            name: 'The Dungeon',
+            details: '',
+            suggestedAdd: 'This adventure focuses on a dungeon.',
+          },
+          {
+            lowRange: 67,
+            highRange: 100,
+            name: 'Other Location',
+            details: '',
+            suggestedAdd: 'This adventure focuses on a location other than the wilds or a dungeon.',
+          }
+        ],
+      },
     };
 
     this.addOption = this.addOption.bind(this);
@@ -41,6 +69,7 @@ class App extends React.Component {
         <Table
           id="table-component"
           addOption={this.addOption}
+          table={this.state.table}
         />
 
         <div id="editor-component">

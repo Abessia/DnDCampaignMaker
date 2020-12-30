@@ -11,6 +11,8 @@ class TableRow extends React.Component {
 
     this.state = {
       rowName: this.props.rowName,
+      rowDetails: this.props.rowDetails,
+      suggestedAdd: this.props.suggestedAdd,
       addOption: this.props.addOption,
     };
 
@@ -20,7 +22,7 @@ class TableRow extends React.Component {
 
   selectOption() {
     console.log(`${this.state.rowName} selected`);
-    this.state.addOption(this.state.rowName);
+    this.state.addOption(this.state.suggestedAdd);
   }
 
   removeOption() {
@@ -35,7 +37,7 @@ class TableRow extends React.Component {
           <Button clickHandler={this.removeOption} text="-" />
         </span>
         <p id="row-name">{this.state.rowName}</p>
-        <p id="row-description"> details </p>
+        <p id="row-description">{this.state.rowDetails}</p>
       </li>
     );
   }
