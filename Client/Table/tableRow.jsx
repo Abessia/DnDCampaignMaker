@@ -11,7 +11,7 @@ class TableRow extends React.Component {
 
     this.state = {
       rowName: this.props.rowName,
-      rowDetails: this.props.rowDetails,
+      // rowDetails: this.props.rowDetails,
       rowIndex: this.props.rowIndex,
       bottomRange: this.props.bottomRange,
       upperRange: this.props.upperRange,
@@ -30,7 +30,6 @@ class TableRow extends React.Component {
 
   remove() {
     this.state.removeOption(this.state.rowIndex);
-    console.log(`${this.state.rowName} removed from roll`);
   }
 
   render() {
@@ -39,10 +38,9 @@ class TableRow extends React.Component {
         <span id="row-buttons">
           <Button clickHandler={this.selectOption} text="+" />
           <Button clickHandler={this.remove} text="-" />
-          {` ${this.state.bottomRange} - ${this.state.upperRange}`}
         </span>
         <p id="row-name">{this.state.rowName}</p>
-        <p id="row-description">{this.state.rowDetails}</p>
+        <p id="row-description">{` ${this.state.bottomRange} - ${this.state.upperRange} `}</p>
       </li>
     );
   }

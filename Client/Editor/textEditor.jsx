@@ -27,7 +27,7 @@ class TextEditor extends React.Component {
       <div id="text-editor">
         <textarea
           id="text-box"
-          rows="30"
+          rows="35"
           cols="75"
           value={this.state.value}
           onChange={this.handleChange}

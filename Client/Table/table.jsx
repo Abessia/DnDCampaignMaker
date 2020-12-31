@@ -1,3 +1,5 @@
+/* eslint-disable operator-assignment */
+/* eslint-disable no-plusplus */
 /* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable no-console */
 /* eslint-disable react/prop-types */
@@ -28,8 +30,21 @@ class Table extends React.Component {
   }
 
   removeOption(index) {
-    console.log(this.state.currentRows);
     const rows = this.state.currentRows.slice();
+    console.log(rows);
+
+    // adjust the ranges for subsequent random rolls (+1 for inclusive of lowRange)
+    const range = (rows[index].highRange - rows[index].lowRange + 1);
+    console.log(range);
+
+    for (let i = rows.length - 1; i > index; i--) {
+      console.log(`Prior range ${rows[i].lowRange} to ${rows[i].highRange}`);
+      rows[i].highRange = rows[i].highRange - range;
+      rows[i].lowRange = rows[i].lowRange - range;
+      console.log(`New range ${rows[i].lowRange} to ${rows[i].highRange}`);
+    }
+
+    // Delete the option selected for removal from the table rows
     rows.splice(index, 1);
     this.setState(
       { currentRows: rows },

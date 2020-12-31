@@ -57,7 +57,7 @@ class TableHeader extends React.Component {
         <div id="header-row">
           <Button clickHandler={this.roll} id="roll-button" text="Roll" />
           <p id="option-header">Option</p>
-          <p id="description-header">Description</p>
+          <p id="description-header">Range</p>
         </div>
       </div>
     );
