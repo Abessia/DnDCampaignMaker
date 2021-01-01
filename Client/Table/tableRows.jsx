@@ -14,10 +14,12 @@ function TableRows(props) {
           <TableRow
             rowName={row.name}
             rowDetails={row.details}
+            nextTable={row.next}
             bottomRange={row.lowRange}
             upperRange={row.highRange}
             suggestedAdd={row.suggestedAdd}
             addOption={props.addOption}
+            setNext={props.defineNext}
             removeOption={props.removeOption}
             rowIndex={index}
             key={row.lowRange}

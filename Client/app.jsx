@@ -3,6 +3,7 @@
 /* eslint-disable comma-dangle */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable import/extensions */
+import axios from 'axios';
 import React from 'react';
 import Table from './Table/table.jsx';
 import Button from './Components/button.jsx';
@@ -12,48 +13,42 @@ class App extends React.Component {
     super();
     this.state = {
       editorText: '',
-      table: {
-        title: 'Where Does Your Adventure Take Place?',
-        description: 'Adventures set in crumbling dungeons and remote wilderness locations are the cornerstone of countless campaigns',
-        step: 'Adventure-Location',
-        rows: [
-          {
-            lowRange: 0,
-            highRange: 33,
-            name: 'The Wilderness',
-            details: '',
-            suggestedAdd: 'This adventure focuses on the wilderness.',
-          },
-          {
-            lowRange: 34,
-            highRange: 66,
-            name: 'The Dungeon',
-            details: '',
-            suggestedAdd: 'This adventure focuses on a dungeon.',
-          },
-          {
-            lowRange: 67,
-            highRange: 100,
-            name: 'Other Location',
-            details: '',
-            suggestedAdd: 'This adventure focuses on a location other than the wilds or a dungeon.',
-          }
-        ],
-      },
+      table: undefined,
+      currentStep: undefined,
+      rows: undefined,
+      previous: undefined,
     };
 
     this.addOption = this.addOption.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.resetTable = this.resetTable.bind(this);
+    this.nextTable = this.nextTable.bind(this);
+    this.previousTable = this.previousTable.bind(this);
   }
 
+  componentDidMount() {
+    axios.get('api/table/adventure/adventureType')
+      .then((response) => {
+        this.setState(
+          {
+            table: response.data,
+            rows: response.data.rows,
+            currentStep: 'adventureType',
+            previous: '',
+          }
+        );
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  // Editor change handler
   handleChange(event) {
-    this.setState(
-      {
-        editorText: event.target.value,
-      }
-    );
+    this.setState({ editorText: event.target.value });
   }
 
+  // Button methods interacting with app.state
   addOption(string) {
     const currentText = this.state.editorText;
     this.setState(
@@ -63,13 +58,59 @@ class App extends React.Component {
     );
   }
 
+  resetTable() {
+    axios.get(`api/table/adventure/${this.state.currentStep}`)
+      .then((response) => {
+        this.setState({ rows: response.data.rows });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  nextTable(nextTable) {
+    const newPrevious = this.state.currentStep;
+    axios.get(`api/table/adventure/${nextTable}`)
+      .then((response) => {
+        this.setState({
+          table: response.data,
+          rows: response.data.rows,
+          currentStep: response.data.step,
+          previous: newPrevious,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  previousTable() {
+    if (this.state.previous !== '') {
+      console.log(`previous table identified: ${this.state.previous}`);
+    } else {
+      console.log('There is no previous table.');
+    }
+  }
+
   render() {
+    if (this.state.table === undefined) {
+      return (
+        <h4> </h4>
+      );
+    }
+
+    console.log('App Rendering with Rows: ', this.state.rows);
+
     return (
       <div id="grid-container">
         <Table
           id="table-component"
           addOption={this.addOption}
+          resetTable={this.resetTable}
+          nextButton={this.nextTable}
+          previousButton={this.previousTable}
           table={this.state.table}
+          rows={this.state.rows}
         />
 
         <div id="editor-component">

@@ -16,42 +16,55 @@ class Table extends React.Component {
     super(props);
 
     this.state = {
-      currentRows: this.props.table.rows,
+      currentRows: this.props.rows,
+      next: undefined,
     };
 
-    this.resetTable = this.resetTable.bind(this);
+    this.previousTable = this.props.previousButton;
+    this.resetTable = this.props.resetTable;
+    this.nextTable = this.props.nextButton;
+    this.handleNext = this.handleNext.bind(this);
+    this.setNext = this.setNext.bind(this);
     this.removeOption = this.removeOption.bind(this);
   }
 
-  resetTable() {
-    this.setState(
-      { currentRows: this.props.table.rows },
-    );
+  handleNext() {
+    if (this.state.next === undefined) {
+      console.log('next is undefined');
+    } else {
+      this.nextTable(this.state.next);
+    }
+  }
+
+  setNext(nextTable) {
+    this.setState({ next: nextTable }, () => {
+      console.log(`Table state.next set to: ${this.state.next}`);
+    });
   }
 
   removeOption(index) {
     const rows = this.state.currentRows.slice();
-    console.log(rows);
 
     // adjust the ranges for subsequent random rolls (+1 for inclusive of lowRange)
     const range = (rows[index].highRange - rows[index].lowRange + 1);
-    console.log(range);
 
     for (let i = rows.length - 1; i > index; i--) {
-      console.log(`Prior range ${rows[i].lowRange} to ${rows[i].highRange}`);
+      // console.log(`Prior range ${rows[i].lowRange} to ${rows[i].highRange}`);
       rows[i].highRange = rows[i].highRange - range;
       rows[i].lowRange = rows[i].lowRange - range;
-      console.log(`New range ${rows[i].lowRange} to ${rows[i].highRange}`);
+      // console.log(`New range ${rows[i].lowRange} to ${rows[i].highRange}`);
     }
 
     // Delete the option selected for removal from the table rows
     rows.splice(index, 1);
     this.setState(
-      { currentRows: rows },
+      { currentRows: rows.slice() },
     );
   }
 
   render() {
+    console.log('Rendering Table with Rows: ', this.state.currentRows);
+    console.log('Table Props Rows: ', this.props.rows);
     return (
       <div>
         <h2>Campaign Options</h2>
@@ -60,15 +73,18 @@ class Table extends React.Component {
           <p id="table-description">{this.props.table.description}</p>
           <TableHeader
             addOption={this.props.addOption}
-            rows={this.state.currentRows}
+            rows={this.props.rows}
           />
           <TableRows
             addOption={this.props.addOption}
             removeOption={this.removeOption}
-            rows={this.state.currentRows}
+            defineNext={this.setNext}
+            rows={this.props.rows}
           />
         </div>
+        <Button text="Previous" clickHandler={this.previousTable} />
         <Button text="Reset Table" clickHandler={this.resetTable} />
+        <Button text="Next" clickHandler={this.handleNext} />
       </div>
     );
   }
