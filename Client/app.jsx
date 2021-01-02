@@ -20,6 +20,7 @@ class App extends React.Component {
       currentStep: undefined,
       rows: undefined,
       previous: undefined,
+      next: undefined,
     };
 
     this.addOption = this.addOption.bind(this);
@@ -53,11 +54,14 @@ class App extends React.Component {
   }
 
   // Button methods interacting with app.state
-  addOption(string) {
+  addOption(string, nextTable) {
     const currentText = this.state.editorText;
     this.setState(
       {
         editorText: currentText + string,
+        next: nextTable,
+      }, () => {
+        console.log('Next Table set to ', this.state.next);
       }
     );
   }
@@ -97,15 +101,16 @@ class App extends React.Component {
     return { res: result, roll: currentRoll };
   }
 
-  nextTable(nextTable) {
+  nextTable() {
     const newPrevious = this.state.currentStep;
-    axios.get(`api/table/adventure/${nextTable}`)
+    axios.get(`api/table/adventure/${this.state.next}`)
       .then((response) => {
         this.setState({
           table: response.data,
           rows: response.data.rows,
           currentStep: response.data.step,
           previous: newPrevious,
+          next: '',
         });
       })
       .catch((error) => {
@@ -128,8 +133,6 @@ class App extends React.Component {
       );
     }
 
-    console.log('App Rendering with Rows: ', this.state.rows);
-
     return (
       <div id="grid-container">
         <Table
@@ -141,6 +144,7 @@ class App extends React.Component {
           previousButton={this.previousTable}
           table={this.state.table}
           rows={this.state.rows}
+          next={this.state.next}
         />
 
         <div id="editor-component">

@@ -9,7 +9,7 @@ const adventureType = {
       highRange: 20,
       name: 'The Wilderness',
       details: '',
-      suggestedAdd: 'This adventure focuses on the wilderness.',
+      suggestedAdd: 'This adventure focuses on the wilderness. ',
       next: 'adventureWildernessGoals',
     },
     {
@@ -17,7 +17,7 @@ const adventureType = {
       highRange: 40,
       name: 'The Dungeon',
       details: '',
-      suggestedAdd: 'This adventure focuses on a dungeon.',
+      suggestedAdd: 'This adventure focuses on a dungeon. ',
       next: 'adventureDungeonGoals',
     },
     {
@@ -25,7 +25,7 @@ const adventureType = {
       highRange: 50,
       name: 'Other Location',
       details: '',
-      suggestedAdd: 'This adventure focuses on a location other than the wilds or a dungeon.',
+      suggestedAdd: 'This adventure focuses on a location other than the wilds or a dungeon. ',
       next: 'adventureOtherGoals',
     },
     {
@@ -33,7 +33,7 @@ const adventureType = {
       highRange: 70,
       name: 'Event-Based',
       details: '',
-      suggestedAdd: 'This adventure centers around a central event.',
+      suggestedAdd: 'This adventure centers around a central event. ',
       next: 'adventureVillainActions',
     },
     {
@@ -41,7 +41,7 @@ const adventureType = {
       highRange: 85,
       name: 'Mystery',
       details: '',
-      suggestedAdd: 'This adventure centers around the adventurers\' attempts to solve a crime or uncover hidden information.',
+      suggestedAdd: 'This adventure centers around the adventurers\' attempts to solve a crime or uncover hidden information. ',
       next: 'adventureVillainActions',
     },
     {
@@ -49,8 +49,8 @@ const adventureType = {
       highRange: 100,
       name: 'Intrigue',
       details: '',
-      suggestedAdd: 'This adventure focuses on the adventurers\' attempts to navigate social power-struggles.',
-      next: 'adventureFramingEvent',
+      suggestedAdd: 'This adventure focuses on the adventurers\' attempts to navigate social power-struggles. ',
+      next: 'adventureFramingEvents',
     },
   ],
 };

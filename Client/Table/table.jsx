@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 /* eslint-disable operator-assignment */
 /* eslint-disable no-plusplus */
 /* eslint-disable react/no-access-state-in-setstate */
@@ -17,32 +18,24 @@ class Table extends React.Component {
 
     this.state = {
       currentRows: this.props.rows,
-      next: undefined,
     };
 
     this.previousTable = this.props.previousButton;
     this.resetTable = this.props.resetTable;
     this.nextTable = this.props.nextButton;
     this.handleNext = this.handleNext.bind(this);
-    this.setNext = this.setNext.bind(this);
-    this.removeOption = this.removeOption.bind(this);
+    // this.removeOption = this.removeOption.bind(this);
   }
 
   handleNext() {
-    if (this.state.next === undefined) {
+    if (this.props.next === undefined) {
       console.log('next is undefined');
     } else {
-      this.nextTable(this.state.next);
+      this.nextTable();
     }
   }
 
-  setNext(nextTable) {
-    this.setState({ next: nextTable }, () => {
-      console.log(`Table state.next set to: ${this.state.next}`);
-    });
-  }
-
-  removeOption(index) {
+  /* removeOption(index) {
     const rows = this.state.currentRows.slice();
 
     // adjust the ranges for subsequent random rolls (+1 for inclusive of lowRange)
@@ -60,11 +53,9 @@ class Table extends React.Component {
     this.setState(
       { currentRows: rows.slice() },
     );
-  }
+  } */
 
   render() {
-    console.log('Rendering Table with Rows: ', this.state.currentRows);
-    console.log('Table Props Rows: ', this.props.rows);
     return (
       <div>
         <h2>Campaign Options</h2>
@@ -77,8 +68,7 @@ class Table extends React.Component {
           />
           <TableRows
             addOption={this.props.addOption}
-            removeOption={this.removeOption}
-            defineNext={this.setNext}
+            // removeOption={this.removeOption}
             rows={this.props.rows}
           />
         </div>

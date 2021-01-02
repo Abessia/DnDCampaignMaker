@@ -9,7 +9,7 @@ import TableRow from './tableRow.jsx';
 function TableRows(props) {
   return (
     <ul id="table-rows">
-      {props.rows.map((row, index) => {
+      { props.rows.map((row, index) => {
         return (
           <TableRow
             rowName={row.name}
@@ -19,8 +19,7 @@ function TableRows(props) {
             upperRange={row.highRange}
             suggestedAdd={row.suggestedAdd}
             addOption={props.addOption}
-            setNext={props.defineNext}
-            removeOption={props.removeOption}
+            // removeOption={props.removeOption}
             rowIndex={index}
             key={row.lowRange}
           />

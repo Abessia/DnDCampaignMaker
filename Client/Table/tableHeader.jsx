@@ -21,8 +21,7 @@ class TableHeader extends React.Component {
     if (result.res === undefined) {
       console.log('Error in Result of Roll');
     } else if (confirm(`You rolled a(n) ${result.roll}.\nThis will add "${result.res.name}" to your campaign.\nIs that ok?`)) {
-      // Add the suggestedAdd to the campaign document
-      this.props.addOption(result.res.suggestedAdd);
+      this.props.addOption(result.res.suggestedAdd, result.res.next);
     }
   }
 

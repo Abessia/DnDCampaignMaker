@@ -12,31 +12,28 @@ class TableRow extends React.Component {
     super(props);
 
     this.state = {
-      rowName: this.props.rowName,
+      // rowName: this.props.rowName,
       // rowDetails: this.props.rowDetails,
-      rowIndex: this.props.rowIndex,
+      // rowIndex: this.props.rowIndex,
       nextTable: this.props.nextTable,
-      bottomRange: this.props.bottomRange,
-      upperRange: this.props.upperRange,
+      // bottomRange: this.props.bottomRange,
+      // upperRange: this.props.upperRange,
       suggestedAdd: this.props.suggestedAdd,
       addOption: this.props.addOption,
-      removeOption: this.props.removeOption,
-      setNext: this.props.setNext,
+      // removeOption: this.props.removeOption,
     };
 
-    this.remove = this.remove.bind(this);
+    // this.remove = this.remove.bind(this);
     this.selectOption = this.selectOption.bind(this);
   }
 
   selectOption() {
-    this.state.addOption(this.state.suggestedAdd);
-    this.state.setNext(this.state.nextTable);
-    console.log(`Calling setNext With: ${this.state.nextTable}`);
+    this.state.addOption(this.state.suggestedAdd, this.state.nextTable);
   }
 
-  remove() {
+  /* remove() {
     this.state.removeOption(this.state.rowIndex);
-  }
+  } */
 
   render() {
     return (
@@ -45,8 +42,8 @@ class TableRow extends React.Component {
           <Button clickHandler={this.selectOption} text="+" />
           <DisabledButton text="-" />
         </span>
-        <p id="row-name">{this.state.rowName}</p>
-        <p id="row-description">{` ${this.state.bottomRange} - ${this.state.upperRange} `}</p>
+        <p id="row-name">{this.props.rowName}</p>
+        <p id="row-description">{` ${this.props.bottomRange} - ${this.props.upperRange} `}</p>
       </li>
     );
   }
