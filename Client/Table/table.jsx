@@ -73,7 +73,7 @@ class Table extends React.Component {
           <p id="table-description">{this.props.table.description}</p>
           <TableHeader
             addOption={this.props.addOption}
-            rows={this.props.rows}
+            roll={this.props.roll}
           />
           <TableRows
             addOption={this.props.addOption}

@@ -1,3 +1,6 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable no-alert */
+/* eslint-disable no-restricted-globals */
 /* eslint-disable no-console */
 /* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable comma-dangle */
@@ -24,6 +27,7 @@ class App extends React.Component {
     this.resetTable = this.resetTable.bind(this);
     this.nextTable = this.nextTable.bind(this);
     this.previousTable = this.previousTable.bind(this);
+    this.roll = this.roll.bind(this);
   }
 
   componentDidMount() {
@@ -68,6 +72,31 @@ class App extends React.Component {
       });
   }
 
+  roll() {
+    let lowestRange = this.state.rows[0].lowRange;
+    let highestRange = this.state.rows[0].highRange;
+
+    for (let i = 1; i < this.state.rows.length; i++) {
+      if (this.state.rows[i].lowRange < lowestRange) {
+        lowestRange = this.state.rows[i].lowRange;
+      }
+      if (this.state.rows[i].highRange > highestRange) {
+        highestRange = this.state.rows[i].highRange;
+      }
+    }
+
+    const currentRoll = Math.floor((Math.random() * (highestRange - lowestRange)) + lowestRange);
+    let result;
+    for (let j = 0; j < this.state.rows.length; j++) {
+      if (currentRoll >= this.state.rows[j].lowRange
+        && currentRoll <= this.state.rows[j].highRange) {
+        result = this.state.rows[j];
+      }
+    }
+
+    return { res: result, roll: currentRoll };
+  }
+
   nextTable(nextTable) {
     const newPrevious = this.state.currentStep;
     axios.get(`api/table/adventure/${nextTable}`)
@@ -105,6 +134,7 @@ class App extends React.Component {
       <div id="grid-container">
         <Table
           id="table-component"
+          roll={this.roll}
           addOption={this.addOption}
           resetTable={this.resetTable}
           nextButton={this.nextTable}
