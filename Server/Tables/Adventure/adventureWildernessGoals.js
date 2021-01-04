@@ -3,6 +3,8 @@ const adventureWildernessGoals = {
   description: 'The following table provides common goals that drive or lure adventurers into an adventure focused on outdoor exploration',
   step: 'adventureWildernessGoals',
   previous: 'adventureType',
+  highRange: 20,
+  source: 'DMG',
   rows: [
     {
       lowRange: 1,

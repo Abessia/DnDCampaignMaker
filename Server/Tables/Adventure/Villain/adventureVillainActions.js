@@ -3,6 +3,8 @@ const adventureVillainActions = {
   description: 'Event-based adventures depend entirely on the actions of the villain and the heroes. Use this table to help determine what steps the villain would take to achieve their goal assuming no interference from the adventurers.',
   step: 'adventureVillainActions',
   previous: 'adventureType',
+  highRange: 6,
+  source: 'DMG',
   rows: [
     {
       lowRange: 1,

@@ -9,7 +9,6 @@ class Button extends React.Component {
     super(props);
 
     this.state = {
-      text: this.props.text,
       clickHandler: this.props.clickHandler,
     };
 
@@ -24,7 +23,13 @@ class Button extends React.Component {
   render() {
     return (
       <div id="basic-button">
-        <button type="button" onClick={this.handleClick}>{this.state.text}</button>
+        <button
+          type="button"
+          onClick={this.handleClick}
+          id={this.props.id}
+        >
+          {this.props.text}
+        </button>
       </div>
     );
   }

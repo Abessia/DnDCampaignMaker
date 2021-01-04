@@ -3,6 +3,8 @@ const adventureOtherGoals = {
   description: 'The "Other Goals" table suggests location-based adventures that don\'t fit neatly into the categories of "Dungeon" or "Wilderness".  Many of these goals are suitable for locations in or around settlements.',
   step: 'adventureOtherGoals',
   previous: 'adventureType',
+  highRange: 12,
+  source: 'DMG',
   rows: [
     {
       lowRange: 1,

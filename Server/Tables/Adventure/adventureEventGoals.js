@@ -3,6 +3,8 @@ const adventureEventGoals = {
   description: 'Use the following table to set the party\'s goal.  A goal can also suggest ways in which the adventurers become caught up in the villain\'s plans, and what they must do to foil those plans.',
   step: 'adventureEventGoals',
   previous: 'adventureVillainActions',
+  highRange: 20,
+  source: 'DMG',
   rows: [
     {
       lowRange: 1,

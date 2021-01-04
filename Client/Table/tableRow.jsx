@@ -12,15 +12,7 @@ class TableRow extends React.Component {
     super(props);
 
     this.state = {
-      // rowName: this.props.rowName,
-      // rowDetails: this.props.rowDetails,
-      // rowIndex: this.props.rowIndex,
-      nextTable: this.props.nextTable,
-      // bottomRange: this.props.bottomRange,
-      // upperRange: this.props.upperRange,
-      suggestedAdd: this.props.suggestedAdd,
       addOption: this.props.addOption,
-      // removeOption: this.props.removeOption,
     };
 
     // this.remove = this.remove.bind(this);
@@ -28,7 +20,7 @@ class TableRow extends React.Component {
   }
 
   selectOption() {
-    this.state.addOption(this.state.suggestedAdd, this.state.nextTable);
+    this.state.addOption(this.props.suggestedAdd, this.props.nextTable);
   }
 
   /* remove() {
@@ -38,15 +30,35 @@ class TableRow extends React.Component {
   render() {
     return (
       <li id="table-row">
+        <p id="row-range">{`${this.props.bottomRange}-${this.props.upperRange}`}</p>
         <span id="row-buttons">
-          <Button clickHandler={this.selectOption} text="+" />
+          <Button clickHandler={this.selectOption} text="+" id="add" />
           <DisabledButton text="-" />
         </span>
         <p id="row-name">{this.props.rowName}</p>
-        <p id="row-description">{` ${this.props.bottomRange} - ${this.props.upperRange} `}</p>
       </li>
     );
   }
 }
 
 export default TableRow;
+
+/* removeOption(index) {
+    const rows = this.state.currentRows.slice();
+
+    // adjust the ranges for subsequent random rolls (+1 for inclusive of lowRange)
+    const range = (rows[index].highRange - rows[index].lowRange + 1);
+
+    for (let i = rows.length - 1; i > index; i--) {
+      // console.log(`Prior range ${rows[i].lowRange} to ${rows[i].highRange}`);
+      rows[i].highRange = rows[i].highRange - range;
+      rows[i].lowRange = rows[i].lowRange - range;
+      // console.log(`New range ${rows[i].lowRange} to ${rows[i].highRange}`);
+    }
+
+    // Delete the option selected for removal from the table rows
+    rows.splice(index, 1);
+    this.setState(
+      { currentRows: rows.slice() },
+    );
+  } */

@@ -3,6 +3,8 @@ const adventureDungeonGoals = {
   description: 'The following table provides common goals that drive or lure adventurers into dungeons',
   step: 'adventureDungeonGoals',
   previous: 'adventureType',
+  highRange: 20,
+  source: 'DMG',
   rows: [
     {
       lowRange: 1,

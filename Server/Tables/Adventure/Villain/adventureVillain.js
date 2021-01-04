@@ -8,6 +8,8 @@ const adventureVillain = {
     'adventureFramingEvent',
     'adventureEventGoals',
   ],
+  highRange: 20,
+  source: 'DMG',
   rows: [
     {
       lowRange: 1,

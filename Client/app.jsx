@@ -9,7 +9,9 @@
 import axios from 'axios';
 import React from 'react';
 import Table from './Table/table.jsx';
+// eslint-disable-next-line no-unused-vars
 import Button from './Components/button.jsx';
+import DisabledButton from './Components/disabledButton.jsx';
 
 class App extends React.Component {
   constructor() {
@@ -21,6 +23,7 @@ class App extends React.Component {
       rows: undefined,
       previous: undefined,
       next: undefined,
+      highRange: undefined,
     };
 
     this.addOption = this.addOption.bind(this);
@@ -40,6 +43,7 @@ class App extends React.Component {
             rows: response.data.rows,
             currentStep: 'adventureType',
             previous: '',
+            highRange: response.data.highRange,
           }
         );
       })
@@ -111,6 +115,7 @@ class App extends React.Component {
           currentStep: response.data.step,
           previous: newPrevious,
           next: '',
+          highRange: response.data.highRange,
         });
       })
       .catch((error) => {
@@ -135,20 +140,41 @@ class App extends React.Component {
 
     return (
       <div id="grid-container">
+
+        <div id="main-nav">
+          <span className="main-nav__item">Campaign</span>
+          <span className="main-nav__item">Heroes</span>
+          <span className="main-nav__item">Adventure</span>
+          <span className="main-nav__item">NPC</span>
+          <span className="main-nav__item">Location</span>
+          <span className="main-nav__item">Encounter</span>
+          <span className="main-nav__item">Rewards</span>
+        </div>
+
         <Table
           id="table-component"
           roll={this.roll}
           addOption={this.addOption}
           resetTable={this.resetTable}
-          nextButton={this.nextTable}
-          previousButton={this.previousTable}
+          nextTable={this.nextTable}
+          previousTable={this.previousTable}
           table={this.state.table}
           rows={this.state.rows}
           next={this.state.next}
+          highestRange={this.state.highRange}
         />
 
         <div id="editor-component">
-          <h2>Campaign Document</h2>
+          <h2 id="editor-title">Campaign Document</h2>
+          <div id="editor-nav">
+            <span className="editor-nav__item">Campaign</span>
+            <span className="editor-nav__item">Heroes</span>
+            <span className="editor-nav__item" id="editor-nav__selected">Adventures</span>
+            <span className="editor-nav__item">NPCs</span>
+            <span className="editor-nav__item">Locations</span>
+            <span className="editor-nav__item">Encounters</span>
+            <span className="editor-nav__item">Rewards</span>
+          </div>
           <div id="text-editor">
             <textarea
               id="text-box"
@@ -159,11 +185,14 @@ class App extends React.Component {
               onChange={this.handleChange}
             />
           </div>
-          <Button
+          <DisabledButton
             clickHandler={() => { console.log(this.state.editorText); }}
             text="Export"
           />
         </div>
+
+        <h4 className="footer">Footer Goes Here</h4>
+
       </div>
     );
   }

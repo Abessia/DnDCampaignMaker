@@ -7,12 +7,22 @@
 /* eslint-disable import/extensions */
 import React from 'react';
 import Button from '../Components/button.jsx';
+import DisabledButton from '../Components/disabledButton.jsx';
 
 class TableHeader extends React.Component {
   constructor(props) {
     super(props);
 
     this.rollHandler = this.rollHandler.bind(this);
+    this.handleNext = this.handleNext.bind(this);
+  }
+
+  handleNext() {
+    if (this.props.next === undefined || this.props.next === '') {
+      console.log('Next is undefined');
+    } else {
+      this.props.nextTable();
+    }
   }
 
   rollHandler() {
@@ -29,9 +39,12 @@ class TableHeader extends React.Component {
     return (
       <div id="table-header">
         <div id="header-row">
-          <Button clickHandler={this.rollHandler} id="roll-button" text="Roll" />
-          <p id="option-header">Option</p>
-          <p id="description-header">Range</p>
+          <Button clickHandler={this.rollHandler} id="roll-button" text={`Roll 1d${this.props.highestRange}`} />
+          <span id="option-header">
+            <DisabledButton text="Previous" clickHandler={this.props.previousTable} id="previous-button" />
+            <DisabledButton text="Reset Table" clickHandler={this.props.resetTable} id="reset-button" />
+            <Button text="Next" clickHandler={this.handleNext} id="next-button" />
+          </span>
         </div>
       </div>
     );

@@ -1,0 +1,60 @@
+const villainMethodWarfare = {
+  title: 'What form of warfare does the villain use?',
+  description: '',
+  step: 'villainMethodWarfare',
+  previous: 'villainMethod',
+  highRange: 6,
+  source: 'DMG',
+  rows: [
+    {
+      lowRange: 1,
+      highRange: 1,
+      name: 'Ambush',
+      details: '',
+      suggestedAdd: ' The villain favors ambush tactics while engaging in warfare in pursuit of their goals. ',
+      next: 'villainWeakness',
+    },
+    {
+      lowRange: 2,
+      highRange: 2,
+      name: 'Invasion',
+      details: '',
+      suggestedAdd: ' In pursuit of their goals, the villain seeks to invade a location. ',
+      next: 'villainWeakness',
+    },
+    {
+      lowRange: 3,
+      highRange: 3,
+      name: 'Massacre',
+      details: '',
+      suggestedAdd: ' In pursuit of their goals, the villain wages war by means of the massacre of civilian populations. ',
+      next: 'villainWeakness',
+    },
+    {
+      lowRange: 4,
+      highRange: 4,
+      name: 'Mercenaries',
+      details: '',
+      suggestedAdd: ' In pursuit of their goals, the villain wages war by hiring mercenaries. ',
+      next: 'villainWeakness',
+    },
+    {
+      lowRange: 5,
+      highRange: 5,
+      name: 'Rebellion',
+      details: '',
+      suggestedAdd: ' The villain supports or fights in a rebellion against the government as part of pursuing their goals. ',
+      next: 'villainWeakness',
+    },
+    {
+      lowRange: 6,
+      highRange: 6,
+      name: 'Terrorism',
+      details: '',
+      suggestedAdd: ' The villain wages psychological war through acts of terrorism as a means of pursuing their goals. ',
+      next: 'villainWeakness',
+    },
+  ],
+};
+
+module.exports = villainMethodWarfare;

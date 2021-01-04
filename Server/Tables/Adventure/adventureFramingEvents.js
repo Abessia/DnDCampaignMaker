@@ -3,6 +3,8 @@ const tableTitle = {
   description: 'You can base an entire adventure on a framing event or use such an event to grab the players\' interest.  The following table presents several ideas, or you can use it to inspire your own framing event.',
   step: 'adventureFramingEvents',
   previous: 'adventureType',
+  highRange: 100,
+  source: 'DMG',
   rows: [
     {
       lowRange: 1,

@@ -3,6 +3,8 @@ const adventureType = {
   description: 'Adventures set in crumbling dungeons and remote wilderness locations are the cornerstone of countless campaigns.\n\nIn an event-based adventure, the focus is on what the characters and villains do and what happens as a result.\n\nA mystery is a form of event-based adventure that usually focuses on the adventurers\' efforts to solve a crime, usually a robbery or murder.\n\nIntrigue adventures are event-based adventures that revolve around power struggles.',
   step: 'adventure-type',
   previous: 'none',
+  highRange: 100,
+  source: 'DMG',
   rows: [
     {
       lowRange: 0,
