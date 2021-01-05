@@ -10,13 +10,21 @@
 import React from 'react';
 import TableRows from './tableRows.jsx';
 import TableHeader from './tableHeader.jsx';
+import Menu from './tableMenu.jsx';
 
 function Table(props) {
   return (
     <div>
       <h2>Campaign Options</h2>
       <div id="table">
-        <h4 id="table-title">{props.table.title}</h4>
+        <span id="table-title">
+          <Menu
+            selectTable={props.selectTable}
+            currentTable={props.currentTable}
+            menu={props.menu}
+          />
+          <h4>{props.table.title}</h4>
+        </span>
         <p id="table-description">{props.table.description}</p>
         <TableHeader
           addOption={props.addOption}

@@ -49,7 +49,7 @@ p {
 
 #grid-container {
   display: grid;
-  grid-template-rows: 35px auto 24px;
+  grid-template-rows: 35px auto 120px;
   grid-template-areas: "nav-bar nav-bar nav-bar"
                        "current-table editor editor"
                        "footer footer footer";
@@ -95,6 +95,14 @@ ul {
 
 #table-title {
   grid-area: title;
+  display: grid;
+  gap: 4px;
+  grid-template-rows: auto auto;
+}
+
+#table-menu {
+  justify-content: start;
+  align-content: center;
 }
 
 #table-description {
@@ -217,4 +225,19 @@ ul {
   margin: 0px;
   grid-area: footer;
 }
-/*# sourceMappingURL=styles.css.map */
+
+#dndbeyond-link {
+  color: blue;
+}
+
+#dndbeyond-link:visited {
+  color: crimson;
+}
+
+#github-link {
+  color: blue;
+}
+
+#github-link:visited {
+  color: crimson;
+}

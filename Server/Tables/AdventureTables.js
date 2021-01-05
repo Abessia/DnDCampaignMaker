@@ -50,7 +50,30 @@ const villainMethodWarfare = require('./Adventure/Villain/villainMethodWarfare')
 // Villain's Weakness
 const villainWeakness = require('./Adventure/Villain/villainWeakness');
 
+// MenuList
+const adventureMenu = [
+  { table: 'adventureType', name: '1.1 Adventure Type' },
+  { table: 'adventureDungeonGoals', name: '1.2 Dungeon Goals' },
+  { table: 'adventureWildernessGoals', name: '1.3 Wilderness Goals' },
+  { table: 'adventureOtherGoals', name: '1.4 Other Goals' },
+  { table: 'adventureFramingEvents', name: '1.5 Framing Events' },
+  { table: 'adventureEventGoals', name: '1.6 Event Goals' },
+  { table: 'adventureVillain', name: '1.7 Villain Identity' },
+  { table: 'adventureVillainActions', name: '1.8 Villain Actions' },
+  { table: 'villainScheme', name: '1.9 Villain\'s Scheme' },
+  { table: 'villainMethod', name: '1.10 Villain\'s Method' },
+  { table: 'villainWeakness', name: '1.11 Villain\'s Weakness' },
+  { table: 'adventureAlly', name: '1.12 Adventure Allies' },
+  { table: 'adventurePatron', name: '1.13 Adventure Patrons' },
+  { table: 'adventureIntroduction', name: '1.14 Adventure Introduction' },
+  { table: 'adventureMoralQuandary', name: '1.15 Moral Quandaries' },
+  { table: 'adventureTwist', name: '1.16 Adventure Twists' },
+  { table: 'adventureSideQuest', name: '1.17 Side Quests' },
+  { table: 'adventureClimax', name: '1.18 Adventure Climax' },
+];
+
 module.exports = {
+  adventureMenu,
   adventureType,
   adventureDungeonGoals,
   adventureWildernessGoals,

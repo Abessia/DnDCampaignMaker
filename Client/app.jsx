@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-one-expression-per-line */
+/* eslint-disable max-len */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-alert */
 /* eslint-disable no-restricted-globals */
@@ -17,16 +19,18 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      editorText: '',
+      adventureText: '',
       table: undefined,
       currentStep: undefined,
       rows: undefined,
       previous: undefined,
       next: undefined,
       highRange: undefined,
+      menu: undefined,
     };
 
     this.addOption = this.addOption.bind(this);
+    this.selectTable = this.selectTable.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.resetTable = this.resetTable.bind(this);
     this.nextTable = this.nextTable.bind(this);
@@ -50,24 +54,39 @@ class App extends React.Component {
       .catch((error) => {
         console.error(error);
       });
+    axios.get('api/table/adventure/adventureMenu')
+      .then((response) => {
+        console.log(response);
+        this.setState({ menu: response.data });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   // Editor change handler
   handleChange(event) {
-    this.setState({ editorText: event.target.value });
+    this.setState({ adventureText: event.target.value });
   }
 
   // Button methods interacting with app.state
   addOption(string, nextTable) {
-    const currentText = this.state.editorText;
+    const currentText = this.state.adventureText;
     this.setState(
       {
-        editorText: currentText + string,
+        adventureText: currentText + string,
         next: nextTable,
       }, () => {
         console.log('Next Table set to ', this.state.next);
       }
     );
+  }
+
+  selectTable(tableName) {
+    this.setState({ next: tableName }, () => {
+      console.log('Table Selected: ', this.state.next);
+      this.nextTable();
+    });
   }
 
   resetTable() {
@@ -132,7 +151,7 @@ class App extends React.Component {
   }
 
   render() {
-    if (this.state.table === undefined) {
+    if (this.state.table === undefined || this.state.menu === undefined) {
       return (
         <h4> </h4>
       );
@@ -154,6 +173,7 @@ class App extends React.Component {
         <Table
           id="table-component"
           roll={this.roll}
+          selectTable={this.selectTable}
           addOption={this.addOption}
           resetTable={this.resetTable}
           nextTable={this.nextTable}
@@ -162,6 +182,8 @@ class App extends React.Component {
           rows={this.state.rows}
           next={this.state.next}
           highestRange={this.state.highRange}
+          menu={this.state.menu}
+          currentTable={this.state.currentStep}
         />
 
         <div id="editor-component">
@@ -181,17 +203,25 @@ class App extends React.Component {
               rows="30"
               cols="75"
               placeholder="Input campaign text here..."
-              value={this.state.editorText}
+              value={this.state.adventureText}
               onChange={this.handleChange}
             />
           </div>
           <DisabledButton
-            clickHandler={() => { console.log(this.state.editorText); }}
+            clickHandler={() => { console.log(this.state.adventureText); }}
             text="Export"
           />
         </div>
 
-        <h4 className="footer">Footer Goes Here</h4>
+        <div className="footer">
+          <h4 id="footer-attribution">
+            Tables for this Campaign Creator come from the 5th Edition <i>Dungeon Master&apos;s Guide</i> by Wizard&apos;s of the Coast, 2014
+          </h4>
+          <p>
+            To purchase the <i>Dungeon Master&apos;s Guide</i> go to the marketplace at: <a id="dndbeyond-link" href="https://www.dndbeyond.com/marketplace">DnDBeyond.com</a>
+          </p>
+          <p>Created by <a id="github-link" href="https://github.com/Abessia">Rebecca Wiegel</a></p>
+        </div>
 
       </div>
     );
