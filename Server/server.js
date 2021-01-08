@@ -7,7 +7,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
 
-const adventures = require('./Tables/AdventureTables');
+const adventures = require('./CampaignTables/AdventureTables');
 
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(bodyParser.urlencoded({ extended: true }));

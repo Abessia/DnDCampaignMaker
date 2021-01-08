@@ -19,7 +19,6 @@ function TableRows(props) {
             upperRange={row.highRange}
             suggestedAdd={row.suggestedAdd}
             addOption={props.addOption}
-            // removeOption={props.removeOption}
             rowIndex={index}
             key={row.lowRange}
           />

@@ -32,7 +32,6 @@ class App extends React.Component {
     this.addOption = this.addOption.bind(this);
     this.selectTable = this.selectTable.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.resetTable = this.resetTable.bind(this);
     this.nextTable = this.nextTable.bind(this);
     this.previousTable = this.previousTable.bind(this);
     this.roll = this.roll.bind(this);
@@ -71,15 +70,21 @@ class App extends React.Component {
 
   // Button methods interacting with app.state
   addOption(string, nextTable) {
-    const currentText = this.state.adventureText;
-    this.setState(
-      {
-        adventureText: currentText + string,
-        next: nextTable,
-      }, () => {
-        console.log('Next Table set to ', this.state.next);
-      }
-    );
+    if (string === '') {
+      this.setState({ next: nextTable }, () => {
+        this.nextTable();
+      });
+    } else {
+      const currentText = this.state.adventureText;
+      this.setState(
+        {
+          adventureText: currentText + string,
+          next: nextTable,
+        }, () => {
+          console.log('Next Table set to ', this.state.next);
+        }
+      );
+    }
   }
 
   selectTable(tableName) {
@@ -87,16 +92,6 @@ class App extends React.Component {
       console.log('Table Selected: ', this.state.next);
       this.nextTable();
     });
-  }
-
-  resetTable() {
-    axios.get(`api/table/adventure/${this.state.currentStep}`)
-      .then((response) => {
-        this.setState({ rows: response.data.rows });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
   }
 
   roll() {
@@ -175,7 +170,6 @@ class App extends React.Component {
           roll={this.roll}
           selectTable={this.selectTable}
           addOption={this.addOption}
-          resetTable={this.resetTable}
           nextTable={this.nextTable}
           previousTable={this.previousTable}
           table={this.state.table}
