@@ -161,13 +161,13 @@ class App extends React.Component {
       <div id="grid-container">
 
         <div id="main-nav">
-          <span className="main-nav__item">Campaign</span>
-          <span className="main-nav__item">Heroes</span>
-          <span className="main-nav__item">Adventure</span>
-          <span className="main-nav__item">NPC</span>
-          <span className="main-nav__item">Location</span>
-          <span className="main-nav__item">Encounter</span>
-          <span className="main-nav__item">Rewards</span>
+          <span className="main-nav__item" id="main-nav__campaign">Campaign</span>
+          <span className="main-nav__item" id="main-nav__hero">Hero</span>
+          <span className="main-nav__item" id="main-nav__adventure">Adventure</span>
+          <span className="main-nav__item" id="main-nav__npc">NPC</span>
+          <span className="main-nav__item" id="main-nav__location">Location</span>
+          <span className="main-nav__item" id="main-nav__encounter">Encounter</span>
+          <span className="main-nav__item" id="main-nav__rewards">Rewards</span>
         </div>
 
         <Table

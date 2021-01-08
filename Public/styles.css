@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fondamento&display=swap');
 
 /***** General Styles *****/
 * {
@@ -39,12 +40,21 @@ p {
 }
 
 /***** Header / App *****/
-.banner {
-  background-color: black;
-  color: white;
+#banner {
+  background: linear-gradient(to top, rgba(40, 40, 40, 0.75) 25%, transparent), url("images/banner.png") left 0% bottom 50%/cover no-repeat border-box, black;
   border-bottom: red 1px solid;
+  height: 100px;
   margin: 0px;
-  padding: 8px 4px;
+}
+
+#banner__text {
+  margin: 0px;
+  padding: 15px 4px;
+  vertical-align: center;
+  font-size: 3rem;
+  font-family: 'Fondamento', cursive;
+  color: white;
+  opacity: 1.0;
 }
 
 #grid-container {
@@ -224,6 +234,7 @@ ul {
   border-top: red 1px solid;
   margin: 0px;
   grid-area: footer;
+  position: relative;
 }
 
 #dndbeyond-link {
