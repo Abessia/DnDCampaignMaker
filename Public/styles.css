@@ -130,8 +130,8 @@ ul {
 
 #header-row {
   display: grid;
-  grid-template-columns: 128px auto;
-  grid-template-areas: "roll option";
+  grid-template-columns: 112px auto;
+  grid-template-areas: "roll next";
   justify-items: start;
   align-items: center;
   align-content: center;
@@ -147,21 +147,36 @@ ul {
   padding: 8px 24px;
 }
 
+#roll-button:hover {
+  background-color: rgb(19, 121, 189);
+  cursor: pointer;
+}
+
 #roll-button:active {
-  background-color: #1379bd;
-  border: none;
-  outline-color: none;
+  background-color: rgb(10,110,159);
+  cursor: pointer;
 }
 
-#roll-button:focus {
+#next-button {
+  grid-area: next;
+  justify-self: start;
+  background-color: rgb(100, 100, 100);
+  color: white;
+  padding: 8px 24px;
+  margin-left: 16px;
   border: none;
-  outline-color: none;
+  border-radius: 5px;
 }
 
-#option-header {
-  grid-area: option;
-  justify-self: end;
-  margin: 0px;
+#next-button:hover {
+  background-color: rgb(40, 40, 40);
+  color: white;
+  cursor: pointer;
+}
+
+#next-button:active {
+  background-color:rgb(165, 175, 186);
+  cursor: pointer;
 }
 
 #table-rows {
@@ -180,10 +195,12 @@ ul {
 
 #row-range {
   grid-area: range;
+  margin-left: 2px;
 }
 
 #row-buttons {
   grid-area: buttons;
+  margin-left: 22px;
 }
 
 #row-name {

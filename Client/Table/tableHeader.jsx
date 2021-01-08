@@ -7,7 +7,7 @@
 /* eslint-disable import/extensions */
 import React from 'react';
 import Button from '../Components/button.jsx';
-import DisabledButton from '../Components/disabledButton.jsx';
+// import DisabledButton from '../Components/disabledButton.jsx';
 
 class TableHeader extends React.Component {
   constructor(props) {
@@ -44,11 +44,7 @@ class TableHeader extends React.Component {
       <div id="table-header">
         <div id="header-row">
           <Button clickHandler={this.rollHandler} id="roll-button" text={`Roll 1d${this.props.highestRange}`} />
-          <span id="option-header">
-            <DisabledButton text="Previous" clickHandler={this.props.previousTable} id="previous-button" />
-            <DisabledButton text="Reset Table" clickHandler={this.props.resetTable} id="reset-button" />
-            <Button text="Next" clickHandler={this.handleNext} id="next-button" />
-          </span>
+          <Button text="Next" clickHandler={this.handleNext} id="next-button" />
         </div>
       </div>
     );

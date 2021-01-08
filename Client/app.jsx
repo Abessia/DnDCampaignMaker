@@ -11,19 +11,26 @@
 import axios from 'axios';
 import React from 'react';
 import Table from './Table/table.jsx';
-// eslint-disable-next-line no-unused-vars
-import Button from './Components/button.jsx';
-import DisabledButton from './Components/disabledButton.jsx';
+import Editor from './Editor/editor.jsx';
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      adventureText: '',
+      editorText: {
+        campaignText: '',
+        heroText: '',
+        adventureText: '',
+        npcText: '',
+        locationText: '',
+        encounterText: '',
+        rewardsText: '',
+      },
+      currentText: undefined,
+      currentTab: undefined,
       table: undefined,
       currentStep: undefined,
       rows: undefined,
-      previous: undefined,
       next: undefined,
       highRange: undefined,
       menu: undefined,
@@ -33,7 +40,6 @@ class App extends React.Component {
     this.selectTable = this.selectTable.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.nextTable = this.nextTable.bind(this);
-    this.previousTable = this.previousTable.bind(this);
     this.roll = this.roll.bind(this);
   }
 
@@ -44,8 +50,9 @@ class App extends React.Component {
           {
             table: response.data,
             rows: response.data.rows,
+            currentText: this.state.editorText.adventureText,
+            currentTab: 'adventure',
             currentStep: 'adventureType',
-            previous: '',
             highRange: response.data.highRange,
           }
         );
@@ -65,7 +72,7 @@ class App extends React.Component {
 
   // Editor change handler
   handleChange(event) {
-    this.setState({ adventureText: event.target.value });
+    this.setState({ currentText: event.target.value });
   }
 
   // Button methods interacting with app.state
@@ -75,10 +82,10 @@ class App extends React.Component {
         this.nextTable();
       });
     } else {
-      const currentText = this.state.adventureText;
+      const text = this.state.currentText;
       this.setState(
         {
-          adventureText: currentText + string,
+          currentText: text + string,
           next: nextTable,
         }, () => {
           console.log('Next Table set to ', this.state.next);
@@ -120,14 +127,12 @@ class App extends React.Component {
   }
 
   nextTable() {
-    const newPrevious = this.state.currentStep;
-    axios.get(`api/table/adventure/${this.state.next}`)
+    axios.get(`api/table/${this.state.currentTab}/${this.state.next}`)
       .then((response) => {
         this.setState({
           table: response.data,
           rows: response.data.rows,
           currentStep: response.data.step,
-          previous: newPrevious,
           next: '',
           highRange: response.data.highRange,
         });
@@ -135,14 +140,6 @@ class App extends React.Component {
       .catch((error) => {
         console.error(error);
       });
-  }
-
-  previousTable() {
-    if (this.state.previous !== '') {
-      console.log(`previous table identified: ${this.state.previous}`);
-    } else {
-      console.log('There is no previous table.');
-    }
   }
 
   render() {
@@ -171,7 +168,6 @@ class App extends React.Component {
           selectTable={this.selectTable}
           addOption={this.addOption}
           nextTable={this.nextTable}
-          previousTable={this.previousTable}
           table={this.state.table}
           rows={this.state.rows}
           next={this.state.next}
@@ -180,32 +176,11 @@ class App extends React.Component {
           currentTable={this.state.currentStep}
         />
 
-        <div id="editor-component">
-          <h2 id="editor-title">Campaign Document</h2>
-          <div id="editor-nav">
-            <span className="editor-nav__item">Campaign</span>
-            <span className="editor-nav__item">Heroes</span>
-            <span className="editor-nav__item" id="editor-nav__selected">Adventures</span>
-            <span className="editor-nav__item">NPCs</span>
-            <span className="editor-nav__item">Locations</span>
-            <span className="editor-nav__item">Encounters</span>
-            <span className="editor-nav__item">Rewards</span>
-          </div>
-          <div id="text-editor">
-            <textarea
-              id="text-box"
-              rows="30"
-              cols="75"
-              placeholder="Input campaign text here..."
-              value={this.state.adventureText}
-              onChange={this.handleChange}
-            />
-          </div>
-          <DisabledButton
-            clickHandler={() => { console.log(this.state.adventureText); }}
-            text="Export"
-          />
-        </div>
+        <Editor
+          text={this.state.currentText}
+          selectedTab={this.state.currentTab}
+          updateText={this.handleChange}
+        />
 
         <div className="footer">
           <h4 id="footer-attribution">

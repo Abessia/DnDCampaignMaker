@@ -30,7 +30,6 @@ function Table(props) {
           addOption={props.addOption}
           roll={props.roll}
           highestRange={props.highestRange}
-          previousTable={props.previousButton}
           resetTable={props.resetTable}
           nextTable={props.nextTable}
           next={props.next}
