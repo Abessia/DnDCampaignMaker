@@ -12,20 +12,19 @@ import axios from 'axios';
 import React from 'react';
 import Table from './Table/table.jsx';
 import Editor from './Editor/editor.jsx';
+import DisabledButton from './Components/disabledButton.jsx';
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      editorText: {
-        campaignText: '',
-        heroText: '',
-        adventureText: '',
-        npcText: '',
-        locationText: '',
-        encounterText: '',
-        rewardsText: '',
-      },
+      campaign: '',
+      hero: '',
+      adventure: '',
+      npc: '',
+      location: '',
+      encounter: '',
+      rewards: '',
       currentText: undefined,
       currentTab: undefined,
       table: undefined,
@@ -38,21 +37,22 @@ class App extends React.Component {
 
     this.addOption = this.addOption.bind(this);
     this.selectTable = this.selectTable.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleTextChange = this.handleTextChange.bind(this);
+    this.changeTab = this.changeTab.bind(this);
     this.nextTable = this.nextTable.bind(this);
     this.roll = this.roll.bind(this);
   }
 
   componentDidMount() {
-    axios.get('api/table/adventure/adventureType')
+    axios.get('api/table/adventure/adventureStart')
       .then((response) => {
         this.setState(
           {
             table: response.data,
             rows: response.data.rows,
-            currentText: this.state.editorText.adventureText,
+            currentText: this.state.adventure,
             currentTab: 'adventure',
-            currentStep: 'adventureType',
+            currentStep: 'adventureStart',
             highRange: response.data.highRange,
           }
         );
@@ -62,7 +62,6 @@ class App extends React.Component {
       });
     axios.get('api/table/adventure/adventureMenu')
       .then((response) => {
-        console.log(response);
         this.setState({ menu: response.data });
       })
       .catch((error) => {
@@ -70,12 +69,88 @@ class App extends React.Component {
       });
   }
 
-  // Editor change handler
-  handleChange(event) {
+  // Editor methods interacting with app.state
+  handleTextChange(event) {
     this.setState({ currentText: event.target.value });
   }
 
-  // Button methods interacting with app.state
+  changeTab(value) {
+    let tabname;
+    if (typeof value === 'string') { // if it is passed in as a string
+      tabname = value;
+    } else { // if it passed in from a button click
+      tabname = value.target.value;
+    }
+
+    tabname = tabname.toLowerCase();
+
+    // Save the current text to its appropriate state
+    const savedText = this.state.currentText;
+    const savedTab = this.state.currentTab;
+    let newText;
+
+    // LOAD the text from the appropriate app.state (tabname)
+    if (tabname === 'campaign') {
+      newText = this.state.campaign;
+    } else if (tabname === 'hero') {
+      newText = this.state.hero;
+    } else if (tabname === 'adventure') {
+      newText = this.state.adventure;
+    } else if (tabname === 'npc') {
+      newText = this.state.npc;
+    } else if (tabname === 'location') {
+      newText = this.state.location;
+    } else if (tabname === 'encounter') {
+      newText = this.state.encounter;
+    } else if (tabname === 'rewards') {
+      newText = this.state.rewards;
+    }
+
+    // GET request the Table & Menu (table)
+    axios.get(`api/table/${tabname}/${tabname}Start`)
+      .then((response) => {
+        this.setState(
+          {
+            table: response.data,
+            rows: response.data.rows,
+            currentTab: `${tabname}`,
+            currentStep: `${tabname}Start`,
+            currentText: newText,
+            highRange: response.data.highRange,
+          },
+          () => {
+            // SAVE the prior text to the appropriate app.state (savedTab)
+            if (savedTab === 'campaign') {
+              this.setState({ campaign: savedText });
+            } else if (savedTab === 'hero') {
+              this.setState({ hero: savedText });
+            } else if (savedTab === 'adventure') {
+              this.setState({ adventure: savedText });
+            } else if (savedTab === 'npc') {
+              this.setState({ npc: savedText });
+            } else if (savedTab === 'location') {
+              this.setState({ location: savedText });
+            } else if (savedTab === 'encounter') {
+              this.setState({ encounter: savedText });
+            } else if (savedTab === 'rewards') {
+              this.setState({ rewards: savedText });
+            }
+          }
+        );
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    axios.get(`api/table/${tabname}/${tabname}Menu`)
+      .then((response) => {
+        this.setState({ menu: response.data });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  // Table methods interacting with app.state
   addOption(string, nextTable) {
     if (string === '') {
       this.setState({ next: nextTable }, () => {
@@ -153,13 +228,10 @@ class App extends React.Component {
       <div id="grid-container">
 
         <div id="main-nav">
-          <span className="main-nav__item" id="main-nav__campaign">Campaign</span>
-          <span className="main-nav__item" id="main-nav__hero">Hero</span>
-          <span className="main-nav__item" id="main-nav__adventure">Adventure</span>
-          <span className="main-nav__item" id="main-nav__npc">NPC</span>
-          <span className="main-nav__item" id="main-nav__location">Location</span>
-          <span className="main-nav__item" id="main-nav__encounter">Encounter</span>
-          <span className="main-nav__item" id="main-nav__rewards">Rewards</span>
+          <DisabledButton className="main-nav__item" id="main-nav__new" text="New Campaign" />
+          <DisabledButton className="main-nav__item" id="main-nav__save" text="Save" />
+          <DisabledButton className="main-nav__item" id="main-nav__load" text="Load" />
+          <DisabledButton className="main-nav__item" id="main-nav__export" text="Export" />
         </div>
 
         <Table
@@ -179,7 +251,8 @@ class App extends React.Component {
         <Editor
           text={this.state.currentText}
           selectedTab={this.state.currentTab}
-          updateText={this.handleChange}
+          updateText={this.handleTextChange}
+          changeTab={this.changeTab}
         />
 
         <div className="footer">

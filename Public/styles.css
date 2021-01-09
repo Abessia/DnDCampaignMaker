@@ -72,14 +72,22 @@ p {
   grid-area: nav-bar;
   background-color: rgb(36, 37, 39);
   color: rgb(165, 175, 186);
-  padding: 8px 4px;
-  padding-left: 2px;
+  padding: 7px;
+  padding-left: 4px;
+  align-self: center;
+  border-top: red;
 }
 
 .main-nav__item {
-  margin: 24px;
-  margin-left: 4px;
   cursor: not-allowed;
+  padding-left: 6px;
+  padding-right: 6px;
+  margin-right: 32px;
+  font-size: 1rem;
+  color: rgb(165, 175, 186);
+  background-color: rgb(36, 37, 39);
+  border: none;
+  appearance: none;
 }
 
 /***** Table *****/
@@ -90,6 +98,7 @@ p {
 #table {
   display: grid;
   row-gap: 4px;
+  margin-left: 6px;
   grid-template-areas: "title title title"
                        "description description description"
                        "header header header"
@@ -100,13 +109,19 @@ ul {
   list-style-type: none;
   padding-left: 0px;
   margin-top: 1px;
+  padding-bottom: 3px;
   margin-bottom: 0px;
+}
+
+#table-banner {
+  margin-left: 8px;
 }
 
 #table-title {
   grid-area: title;
   display: grid;
   gap: 4px;
+  margin-left: 4px;
   grid-template-rows: auto auto;
 }
 
@@ -121,6 +136,7 @@ ul {
   font-style: italic;
   text-align: justify;
   margin-bottom: 12px;
+  margin-left: 4px;
 }
 
 #table-header {
@@ -195,12 +211,13 @@ ul {
 
 #row-range {
   grid-area: range;
-  margin-left: 2px;
+  justify-self: end;
 }
 
 #row-buttons {
   grid-area: buttons;
-  margin-left: 22px;
+  justify-self: center;
+  margin-left: 16px;
 }
 
 #row-name {
@@ -228,20 +245,24 @@ ul {
 .editor-nav__item {
   padding: 6px;
   margin-right: 4px;
+  margin-bottom: -4px;
   background-color: rgba(185, 195, 206, 0.3);
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
+  border: none;
   font-size: small;
-  cursor: not-allowed;
+  cursor: pointer;
+  appearance: none;
 }
 
 #editor-nav__selected {
   background-color: white;
-  cursor: default;
+  cursor: pointer;
 }
 
 #text-box {
   border: none;
+  resize: none;
 }
 
 /***** Footer *****/

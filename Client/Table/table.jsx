@@ -15,7 +15,7 @@ import Menu from './tableMenu.jsx';
 function Table(props) {
   return (
     <div>
-      <h2>Campaign Options</h2>
+      <h2 id="table-banner">Campaign Options</h2>
       <div id="table">
         <span id="table-title">
           <Menu

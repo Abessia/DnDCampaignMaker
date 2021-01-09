@@ -17,7 +17,7 @@ class Button extends React.Component {
 
   handleClick(event) {
     event.preventDefault();
-    this.state.clickHandler();
+    this.state.clickHandler(event);
   }
 
   render() {
@@ -26,7 +26,9 @@ class Button extends React.Component {
         <button
           type="button"
           onClick={this.handleClick}
+          className={this.props.className}
           id={this.props.id}
+          value={this.props.text}
         >
           {this.props.text}
         </button>
