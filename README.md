@@ -1,9 +1,9 @@
 # DnDCampaignMaker
 Welcome to the DnD Campaign Maker.
 
-This is not yet deployed while I continue to implement authentication.  Here are a few images to whet your appetite in the meantime!
+This is not yet deployed while I continue to implement authentication.  Here's a screenshot to whet your appetite in the meantime!
 
-
+![Screenshot](https://github.com/Abessia/DnDCampaignMaker/blob/master/.screenshots/DnDCampaignBuilder_Jan_9_2021.png)
 
 ## Table Format
 To prevent sharing copyrighted materials over github, all table data is gitignored and will eventually be migrated to the database itself.  If you wish to add or input your own tables, you can do so with the following steps:
