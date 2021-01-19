@@ -29,7 +29,13 @@ node_modules/
 bower_components/
 Public/images
 Public/bundle.js
-Server/CampaignTables/
+Server/CampaignTables/Adventure
+Server/CampaignTables/Campaign
+Server/CampaignTables/Encounter
+Server/CampaignTables/Hero
+Server/CampaignTables/Location
+Server/CampaignTables/NPCs
+Server/CampaignTables/Rewards
 
 # Floobits
 .floo
