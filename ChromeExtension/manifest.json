@@ -1,6 +1,6 @@
 {
   "name": "DnD Campaign Maker Chrome Extension",
-  "version": 0.1,
+  "version": "0.1",
   "description": "This extension connects the DnDCampaignMaker to DnDBeyond in order to verify user purchases of copyrighted material and unlock related, limited uses of those materials in the Campaign Maker app.",
   "background": {
     "scripts": ["background.js"],
@@ -9,7 +9,7 @@
   "permissions": [],
   "content_scripts": [
     {
-      "matches": "https://www.dndbeyond.com/sources/dmg",
+      "matches": ["https://www.dndbeyond.com/sources/dmg"],
       "run_at": "document_idle",
       "js": ["dmg-script.js"]
     }
