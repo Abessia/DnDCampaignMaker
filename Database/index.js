@@ -9,9 +9,9 @@ AWS.config.update(
     region: 'us-east-2',
   },
 );
-
 const dynamoDB = new AWS.DynamoDB.DocumentClient();
 
+// TEST of read-function to confirm Database / SDK functionality
 dynamoDB.get({
   TableName: 'campaignCreatorUsers',
   Key: {

@@ -33,6 +33,7 @@ class App extends React.Component {
       next: undefined,
       highRange: undefined,
       menu: undefined,
+      needsLogin: false,
     };
 
     this.addOption = this.addOption.bind(this);
@@ -44,29 +45,61 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('api/table/adventure/adventureStart')
-      .then((response) => {
-        this.setState(
-          {
-            table: response.data,
-            rows: response.data.rows,
-            currentText: this.state.adventure,
-            currentTab: 'adventure',
-            currentStep: 'adventureStart',
-            highRange: response.data.highRange,
-          }
-        );
-      })
-      .catch((error) => {
-        console.error(error);
+    // test variable
+    localStorage.setItem('userToken', 'thisisatoken');
+    // Check local storage for an "Authentication" token from this app
+    if (!localStorage.getItem('userToken')) {
+      // If there is none, load the log-in and sign-up page(s)
+      console.log('User Token Not Found');
+      this.setState({
+        needsLogin: true,
       });
-    axios.get('api/table/adventure/adventureMenu')
-      .then((response) => {
-        this.setState({ menu: response.data });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    } else {
+      // If there's an Authentication token, send it as a header to the server
+      const currentUser = localStorage.getItem('userToken');
+      console.log('User Token Found: ', currentUser);
+      // eslint-disable-next-line dot-notation
+      // eslint-disable-next-line quote-props
+      axios.get(`api/authenticate/${currentUser}`)
+        .then((response) => {
+          // If the server validates the token, proceed to load the main app
+          console.log('Token Validated: ', response);
+          axios.get('api/table/adventure/adventureStart')
+            .then((res) => {
+              console.log('Loading campaign creator....');
+              this.setState(
+                {
+                  table: res.data,
+                  rows: res.data.rows,
+                  currentText: this.state.adventure,
+                  currentTab: 'adventure',
+                  currentStep: 'adventureStart',
+                  highRange: res.data.highRange,
+                }
+              );
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+          axios.get('api/table/adventure/adventureMenu')
+            .then((res) => {
+              console.log('Loading menu.....');
+              this.setState({ menu: res.data });
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        })
+        .catch((error) => {
+          // If the server does not validate the token, load the log-in and sign-up page(s)
+          console.log('Token Not Validated by Server');
+          console.error(error);
+          this.setState({
+            needsLogin: true,
+          });
+        });
+    }
+    console.log(window.localStorage);
   }
 
   // Editor methods interacting with app.state
@@ -218,6 +251,30 @@ class App extends React.Component {
   }
 
   render() {
+    if (this.state.needsLogin === true) {
+      return (
+        <div id="grid-container">
+
+          <div id="main-nav">
+            <DisabledButton className="main-nav__item" id="main-nav__new" text="New Campaign" />
+            <DisabledButton className="main-nav__item" id="main-nav__save" text="Save" />
+            <DisabledButton className="main-nav__item" id="main-nav__load" text="Load" />
+            <DisabledButton className="main-nav__item" id="main-nav__export" text="Export" />
+          </div>
+          <h1>You Need to Log In</h1>
+          <div className="footer">
+            <h4 id="footer-attribution">
+              Tables for this Campaign Creator come from the 5th Edition <i>Dungeon Master&apos;s Guide</i> by Wizard&apos;s of the Coast, 2014
+            </h4>
+            <p>
+              To purchase the <i>Dungeon Master&apos;s Guide</i> go to the marketplace at: <a id="dndbeyond-link" href="https://www.dndbeyond.com/marketplace">DnDBeyond.com</a>
+            </p>
+            <p>Created by <a id="github-link" href="https://github.com/Abessia">Rebecca Wiegel</a></p>
+          </div>
+        </div>
+      );
+    }
+
     if (this.state.table === undefined || this.state.menu === undefined) {
       return (
         <h4> </h4>

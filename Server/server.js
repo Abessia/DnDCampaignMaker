@@ -53,4 +53,18 @@ app.get('/api/table/:tabName/:tableName', (req, res) => {
   }
 });
 
+app.get('/api/authenticate/:user', (req, res) => {
+  res.status(200);
+  console.log('Attempting Authentication.....');
+  try {
+    const token = req.params.user;
+    console.log(token);
+    if (token === 'thisisatoken') {
+      res.status(200).send('Authentication Successful');
+    }
+  } catch (error) {
+    res.status(401).send({ error: 'Please Authenticate' });
+  }
+});
+
 module.exports = app;
