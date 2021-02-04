@@ -90,6 +90,10 @@ p {
   appearance: none;
 }
 
+#main-nav__logout {
+  cursor: pointer;
+}
+
 /***** Table *****/
 #table-component {
   grid-area: current-table;

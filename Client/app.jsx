@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-comp */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable max-len */
 /* eslint-disable no-plusplus */
@@ -12,7 +13,9 @@ import axios from 'axios';
 import React from 'react';
 import Table from './Table/table.jsx';
 import Editor from './Editor/editor.jsx';
+import Login from './Authentication/login.jsx';
 import DisabledButton from './Components/disabledButton.jsx';
+import Button from './Components/button.jsx';
 
 class App extends React.Component {
   constructor() {
@@ -34,8 +37,13 @@ class App extends React.Component {
       highRange: undefined,
       menu: undefined,
       needsLogin: false,
+      dmg: false,
     };
 
+    this.validateUser = this.validateUser.bind(this);
+    this.createUser = this.createUser.bind(this);
+    this.logoutUser = this.logoutUser.bind(this);
+    this.initialize = this.initialize.bind(this);
     this.addOption = this.addOption.bind(this);
     this.selectTable = this.selectTable.bind(this);
     this.handleTextChange = this.handleTextChange.bind(this);
@@ -45,61 +53,98 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    // test variable
-    localStorage.setItem('userToken', 'thisisatoken');
-    // Check local storage for an "Authentication" token from this app
     if (!localStorage.getItem('userToken')) {
-      // If there is none, load the log-in and sign-up page(s)
       console.log('User Token Not Found');
       this.setState({
         needsLogin: true,
       });
     } else {
-      // If there's an Authentication token, send it as a header to the server
       const currentUser = localStorage.getItem('userToken');
-      console.log('User Token Found: ', currentUser);
       // eslint-disable-next-line dot-notation
       // eslint-disable-next-line quote-props
-      axios.get(`api/authenticate/${currentUser}`)
+      axios.get('api/authenticate', { headers: { 'Authorization': `Bearer ${currentUser}` } })
         .then((response) => {
-          // If the server validates the token, proceed to load the main app
-          console.log('Token Validated: ', response);
-          axios.get('api/table/adventure/adventureStart')
-            .then((res) => {
-              console.log('Loading campaign creator....');
-              this.setState(
-                {
-                  table: res.data,
-                  rows: res.data.rows,
-                  currentText: this.state.adventure,
-                  currentTab: 'adventure',
-                  currentStep: 'adventureStart',
-                  highRange: res.data.highRange,
-                }
-              );
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-          axios.get('api/table/adventure/adventureMenu')
-            .then((res) => {
-              console.log('Loading menu.....');
-              this.setState({ menu: res.data });
-            })
-            .catch((error) => {
-              console.error(error);
-            });
+          console.log('Token Validated', response);
+          this.setState({
+            dmg: response.data.dmg,
+          }, () => {
+            this.initialize();
+          });
         })
         .catch((error) => {
-          // If the server does not validate the token, load the log-in and sign-up page(s)
-          console.log('Token Not Validated by Server');
           console.error(error);
           this.setState({
             needsLogin: true,
           });
         });
     }
-    console.log(window.localStorage);
+  }
+
+  // Login / Signup / Logout methods
+  // eslint-disable-next-line class-methods-use-this
+  validateUser({ username, password }) {
+    axios.post('api/login', { username, password })
+      .then((res) => {
+        localStorage.setItem('userToken', res.data);
+        this.initialize();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  createUser({ username, password, emailAddress }) {
+    axios.post('api/signup', { username, password, emailAddress })
+      .then((res) => {
+        localStorage.setItem('userToken', res.data);
+        this.initialize();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  logoutUser() {
+    const token = localStorage.getItem('userToken');
+    axios.post('api/logout', { token })
+      .then((res) => {
+        console.log(res.data);
+        localStorage.removeItem('userToken');
+        this.setState({
+          needsLogin: true,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  initialize() {
+    axios.get('api/table/adventure/adventureStart')
+      .then((res) => {
+        this.setState(
+          {
+            table: res.data,
+            rows: res.data.rows,
+            currentText: this.state.adventure,
+            currentTab: 'adventure',
+            currentStep: 'adventureStart',
+            highRange: res.data.highRange,
+            needsLogin: false,
+          }
+        );
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    axios.get('api/table/adventure/adventureMenu')
+      .then((res) => {
+        this.setState({ menu: res.data });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   // Editor methods interacting with app.state
@@ -260,8 +305,9 @@ class App extends React.Component {
             <DisabledButton className="main-nav__item" id="main-nav__save" text="Save" />
             <DisabledButton className="main-nav__item" id="main-nav__load" text="Load" />
             <DisabledButton className="main-nav__item" id="main-nav__export" text="Export" />
+            <DisabledButton className="main-nav__item" id="main-nav__logout" text="Logout" />
           </div>
-          <h1>You Need to Log In</h1>
+          <Login validateUser={this.validateUser} createUser={this.createUser} />
           <div className="footer">
             <h4 id="footer-attribution">
               Tables for this Campaign Creator come from the 5th Edition <i>Dungeon Master&apos;s Guide</i> by Wizard&apos;s of the Coast, 2014
@@ -281,6 +327,32 @@ class App extends React.Component {
       );
     }
 
+    if (this.state.dmg === false) {
+      return (
+        <div id="grid-container">
+
+          <div id="main-nav">
+            <DisabledButton className="main-nav__item" id="main-nav__new" text="New Campaign" />
+            <DisabledButton className="main-nav__item" id="main-nav__save" text="Save" />
+            <DisabledButton className="main-nav__item" id="main-nav__load" text="Load" />
+            <DisabledButton className="main-nav__item" id="main-nav__export" text="Export" />
+            <DisabledButton className="main-nav__item" id="main-nav__logout" text="Logout" />
+          </div>
+          <h1>You do not have permission to use the DMG</h1>
+          <Login validateUser={this.validateUser} createUser={this.createUser} />
+          <div className="footer">
+            <h4 id="footer-attribution">
+              Tables for this Campaign Creator come from the 5th Edition <i>Dungeon Master&apos;s Guide</i> by Wizard&apos;s of the Coast, 2014
+            </h4>
+            <p>
+              To purchase the <i>Dungeon Master&apos;s Guide</i> go to the marketplace at: <a id="dndbeyond-link" href="https://www.dndbeyond.com/marketplace">DnDBeyond.com</a>
+            </p>
+            <p>Created by <a id="github-link" href="https://github.com/Abessia">Rebecca Wiegel</a></p>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div id="grid-container">
 
@@ -289,6 +361,7 @@ class App extends React.Component {
           <DisabledButton className="main-nav__item" id="main-nav__save" text="Save" />
           <DisabledButton className="main-nav__item" id="main-nav__load" text="Load" />
           <DisabledButton className="main-nav__item" id="main-nav__export" text="Export" />
+          <Button className="main-nav__item" id="main-nav__logout" text="Logout" clickHandler={this.logoutUser} />
         </div>
 
         <Table
