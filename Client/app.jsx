@@ -230,7 +230,7 @@ class App extends React.Component {
 
   // Table methods interacting with app.state
   addOption(string, nextTable) {
-    if (string === '') {
+    if (string === 'subtable') {
       this.setState({ next: nextTable }, () => {
         this.nextTable();
       });
@@ -240,16 +240,13 @@ class App extends React.Component {
         {
           currentText: text + string,
           next: nextTable,
-        }, () => {
-          console.log('Next Table set to ', this.state.next);
-        }
+        },
       );
     }
   }
 
   selectTable(tableName) {
     this.setState({ next: tableName }, () => {
-      console.log('Table Selected: ', this.state.next);
       this.nextTable();
     });
   }

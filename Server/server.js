@@ -13,50 +13,38 @@ const authentication = require('./authentication');
 const dynamoDB = require('../Database/index');
 const secret = require('./_config');
 
-// Tables
-const campaign = require('./CampaignTables/CampaignTables');
-const hero = require('./CampaignTables/HeroTables');
-const adventure = require('./CampaignTables/AdventureTables');
-const npc = require('./CampaignTables/NPCTables');
-const location = require('./CampaignTables/LocationTables');
-const encounter = require('./CampaignTables/EncounterTables');
-const rewards = require('./CampaignTables/RewardsTables');
+let currentTab;
+let currentTable;
 
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.text());
 
-app.get('/api/table/adventure/adventureStart', (req, res) => {
-  res.status(200);
-  res.send(adventure.adventureStart);
-});
-
-app.get('/api/table/adventure/:tableName', (req, res) => {
-  res.status(200);
-  const tableName = req.params.tableName;
-  res.send(adventure[tableName]);
-});
-
 app.get('/api/table/:tabName/:tableName', (req, res) => {
   res.status(200);
   const tabName = req.params.tabName;
   const tableName = req.params.tableName;
 
-  if (tabName === 'campaign') {
-    res.send(campaign[tableName]);
-  } else if (tabName === 'hero') {
-    res.send(hero[tableName]);
-  } else if (tabName === 'adventure') {
-    res.send(adventure[tableName]);
-  } else if (tabName === 'npc') {
-    res.send(npc[tableName]);
-  } else if (tabName === 'location') {
-    res.send(location[tableName]);
-  } else if (tabName === 'encounter') {
-    res.send(encounter[tableName]);
-  } else if (tabName === 'rewards') {
-    res.send(rewards[tableName]);
+  if (currentTab === undefined || tabName !== currentTab.tabName) {
+    dynamoDB.get({
+      TableName: 'campaignCreatorTables',
+      Key: { 'tabName': tabName },
+    }, (err, data) => {
+      if (err) {
+        console.error(err);
+        res.status(404).send({ error: 'Error retrieving table from database' });
+      } else if (data.Item) {
+        currentTab = data.Item;
+        currentTable = data.Item.tables[tableName];
+        res.status(200).send(currentTable);
+      } else {
+        res.status(404).send({ error: 'Error retrieving table from database' });
+      }
+    });
+  } else if (tabName === currentTab.tabName) {
+    currentTable = currentTab.tables[tableName];
+    res.status(200).send(currentTable);
   }
 });
 

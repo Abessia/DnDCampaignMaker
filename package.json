@@ -42,6 +42,7 @@
     "dev:styles": "sass --watch Styles/main.scss:Styles/styles.css",
     "dev:build": "webpack -d --watch",
     "dev:server": "nodemon Server/index.js",
+    "build": "webpack",
     "start": "node Server/index.js",
     "test": "jest"
   },
