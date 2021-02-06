@@ -1,3 +1,4 @@
+/* eslint-disable quote-props */
 /* eslint-disable react/sort-comp */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable max-len */
@@ -86,6 +87,22 @@ class App extends React.Component {
     axios.post('api/login', { username, password })
       .then((res) => {
         localStorage.setItem('userToken', res.data);
+        const currentUser = res.data;
+        axios.get('api/authenticate', { headers: { 'Authorization': `Bearer ${currentUser}` } })
+          .then((response) => {
+            console.log('Token Validated', response);
+            this.setState({
+              dmg: response.data.dmg,
+            }, () => {
+              this.initialize();
+            });
+          })
+          .catch((error) => {
+            console.error(error);
+            this.setState({
+              needsLogin: true,
+            });
+          });
         this.initialize();
       })
       .catch((error) => {
