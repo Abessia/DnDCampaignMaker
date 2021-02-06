@@ -41,7 +41,7 @@ p {
 
 /***** Header / App *****/
 #banner {
-  background: linear-gradient(to top, rgba(40, 40, 40, 0.75) 25%, transparent), url("images/banner.png") left 0% bottom 50%/cover no-repeat border-box, black;
+  background: linear-gradient(to top, rgba(40, 40, 40, 0.75) 25%, transparent), url("https://guitar-centaur.s3.us-east-2.amazonaws.com/banner.png") left 0% bottom 50%/cover no-repeat border-box, black;
   border-bottom: red 1px solid;
   height: 100px;
   margin: 0px;
