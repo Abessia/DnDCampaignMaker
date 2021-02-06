@@ -114,6 +114,22 @@ class App extends React.Component {
     axios.post('api/signup', { username, password, emailAddress })
       .then((res) => {
         localStorage.setItem('userToken', res.data);
+        const currentUser = res.data;
+        axios.get('api/authenticate', { headers: { 'Authorization': `Bearer ${currentUser}` } })
+          .then((response) => {
+            console.log('Token Validated', response);
+            this.setState({
+              dmg: response.data.dmg,
+            }, () => {
+              this.initialize();
+            });
+          })
+          .catch((error) => {
+            console.error(error);
+            this.setState({
+              needsLogin: true,
+            });
+          });
         this.initialize();
       })
       .catch((error) => {
